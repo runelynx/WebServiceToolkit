@@ -16,6 +16,14 @@ export class APIServices extends React.Component {
     onSelectDropdownClick(selection) {
         this.props.onUpdateAPI(selection);
         console.log("Debug99");
+
+        let placeholders = [];
+
+        if (selection === 'Record Scan') {
+            placeholders = ['Stage', 'Lane', 'Clerk Console', 'License Plate', 'Container', 'Chassis'];
+        }
+        console.log(placeholders);
+        this.props.onUpdatePlaceholders(placeholders);
         
     }
 

@@ -16,14 +16,26 @@ class App extends Component {
     super(props);
     this.state = {
       selectedEnvironment: null,
-      selectedAPI: null
+      selectedAPI: null,
+      apiPlaceholders: [],
+      showDebug: false
     };
     this.setEnvironment = this.setEnvironment.bind(this);
     this.setAPI = this.setAPI.bind(this);
+    this.setPlaceholders = this.setPlaceholders.bind(this);
+    this.toggleDebug = this.toggleDebug.bind(this);
   }
 
   toggleDebug() {
-    
+    if (!this.state.showDebug) {
+      document.querySelector('#Debug').style.display = 'block';
+    } else {
+      document.querySelector('#Debug').style.display = 'none';
+    }
+
+    this.setState({
+      showDebug: !this.state.showDebug
+    });
   }
 
   setAPI(selection) {
@@ -41,6 +53,12 @@ class App extends Component {
     document.querySelector('#APIServices').style.display = 'block';
   }
 
+  setPlaceholders(placeholders) {
+    this.setState({
+      apiPlaceholders: placeholders
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -51,15 +69,15 @@ class App extends Component {
           <div className="two">
             <APITarget onUpdateEnvironment={this.setEnvironment} /> <br />
             <div id="APIServices" style={{display:'none'}}>
-              <APIServices onUpdateAPI={this.setAPI} /> <br />
+              <APIServices onUpdateAPI={this.setAPI} onUpdatePlaceholders={this.setPlaceholders}/> <br />
             </div>
-            <Actions />
+            <Actions onToggleDebug={this.toggleDebug}/> <br />
             <div id="Debug" style={{display:'none'}}>
-              <Debug selectedEnvironment={this.state.selectedEnvironment} selectedAPI={this.state.selectedAPI}/>
+              <Debug selectedEnvironment={this.state.selectedEnvironment} selectedAPI={this.state.selectedAPI} placeholders={this.state.apiPlaceholders}/>
             </div>
           </div>
           <div className="three" id="RequestArea" style={{display:'none'}}>
-            <RequestPlaceholders selectedAPI={this.state.selectedAPI}/> <br />
+            <RequestPlaceholders selectedAPI={this.state.selectedAPI} apiPlaceholders={this.state.apiPlaceholders}/> <br />
             <ConstructedRequest selectedAPI={this.state.selectedAPI}/>
           </div>
         </div>

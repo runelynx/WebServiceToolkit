@@ -3,6 +3,38 @@ import React from 'react';
 import { Container, Row, Col, InputGroup, Input, InputGroupAddon } from 'reactstrap';
 
 export class RequestPlaceholders extends React.Component {
+    constructor(props) {
+        super(props);
+        this.renderPlaceholders = this.renderPlaceholders.bind(this);
+    }
+
+    renderPlaceholders() {
+
+        let requestPlaceholders = [];
+        let counter = 1;
+
+        for (var i = 0; i < this.props.apiPlaceholders.length; i+2) {
+
+            requestPlaceholders.push(
+                <Row>
+                    <Col xs="6">
+                    <InputGroup>
+                        <InputGroupAddon addonType="prepend">{this.props.apiPlaceholders[i]}</InputGroupAddon>
+                        <Input />
+                    </InputGroup>
+                    </Col>
+                    <Col xs="6">
+                    <InputGroup>
+                        <InputGroupAddon addonType="prepend">{this.props.apiPlaceholders[i+1]}</InputGroupAddon>
+                        <Input />
+                    </InputGroup>
+                    </Col>
+                </Row>
+            );
+        }
+        return requestPlaceholders;
+
+    }
 
     render() {
         return (
@@ -10,52 +42,9 @@ export class RequestPlaceholders extends React.Component {
                 <h2 className="subtitle">
                     {this.props.selectedAPI} Placeholders
                 </h2>
-
                 <Container>
-                    <Row>
-                        <Col xs="6">
-                        <InputGroup>
-                            <InputGroupAddon addonType="prepend">Stage</InputGroupAddon>
-                            <Input />
-                        </InputGroup>
-                        </Col>
-                        <Col xs="6">
-                        <InputGroup>
-                            <InputGroupAddon addonType="prepend">Lane</InputGroupAddon>
-                            <Input />
-                        </InputGroup>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="6">
-                        <InputGroup>
-                            <InputGroupAddon addonType="prepend">Clerk Console</InputGroupAddon>
-                            <Input />
-                        </InputGroup>
-                        </Col>
-                        <Col xs="6">
-                        <InputGroup>
-                            <InputGroupAddon addonType="prepend">License Plate</InputGroupAddon>
-                            <Input />
-                        </InputGroup>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="6">
-                        <InputGroup>
-                            <InputGroupAddon addonType="prepend">Container</InputGroupAddon>
-                            <Input />
-                        </InputGroup>
-                        </Col>
-                        <Col xs="6">
-                        <InputGroup>
-                            <InputGroupAddon addonType="prepend">Chassis</InputGroupAddon>
-                            <Input />
-                        </InputGroup>
-                        </Col>
-                    </Row>
+                    {this.renderPlaceholders}
                 </Container>
-
             </div>
         );
     }

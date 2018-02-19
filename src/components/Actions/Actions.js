@@ -6,6 +6,7 @@ export class Actions extends React.Component {
         super(props);
 
         this.onSubmitBtnClick = this.onSubmitBtnClick.bind(this);
+        this.onToggleBtnClick = this.onToggleBtnClick.bind(this);
         this.state = {
             tooltipOpen: false
         };
@@ -19,6 +20,10 @@ export class Actions extends React.Component {
 
     }
 
+    onToggleBtnClick() {
+        this.props.onToggleDebug();
+    }
+
     render() {
         return (
             <div>
@@ -27,6 +32,7 @@ export class Actions extends React.Component {
                 </h2>
 
                 <Button onClick={() => this.onSubmitBtnClick()} id="SubmitButton" style={{display:'none'}} color="success" >Submit</Button>{' '}
+                <Button onClick={() => this.onToggleBtnClick()} id="DebugButton" color="warning" >Debug</Button>{' '}
             </div>
         );
     }

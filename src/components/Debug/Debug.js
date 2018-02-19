@@ -20,6 +20,11 @@ export class Debug extends React.Component {
                         Target API
                     </Badge>
                     {' ' + this.props.selectedAPI}
+                    <br />
+                    <Badge color="info">
+                        Placeholders
+                    </Badge>
+                    {' ' + this.props.placeholders}
                 </p>
             </div>
         );
