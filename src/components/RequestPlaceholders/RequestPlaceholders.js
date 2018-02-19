@@ -15,13 +15,13 @@ export class RequestPlaceholders extends React.Component {
                     <Row>
                         <Col xs="6">
                         <InputGroup>
-                            <InputGroupAddon addonType="prepend">Container</InputGroupAddon>
+                            <InputGroupAddon addonType="prepend">Stage</InputGroupAddon>
                             <Input />
                         </InputGroup>
                         </Col>
                         <Col xs="6">
                         <InputGroup>
-                            <InputGroupAddon addonType="prepend">Chassis</InputGroupAddon>
+                            <InputGroupAddon addonType="prepend">Lane</InputGroupAddon>
                             <Input />
                         </InputGroup>
                         </Col>
@@ -29,7 +29,7 @@ export class RequestPlaceholders extends React.Component {
                     <Row>
                         <Col xs="6">
                         <InputGroup>
-                            <InputGroupAddon addonType="prepend">Container</InputGroupAddon>
+                            <InputGroupAddon addonType="prepend">Clerk Console</InputGroupAddon>
                             <Input />
                         </InputGroup>
                         </Col>
@@ -50,20 +50,6 @@ export class RequestPlaceholders extends React.Component {
                         <Col xs="6">
                         <InputGroup>
                             <InputGroupAddon addonType="prepend">Chassis</InputGroupAddon>
-                            <Input />
-                        </InputGroup>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="6">
-                        <InputGroup>
-                            <InputGroupAddon addonType="prepend">Container</InputGroupAddon>
-                            <Input />
-                        </InputGroup>
-                        </Col>
-                        <Col xs="6">
-                        <InputGroup>
-                            <InputGroupAddon addonType="prepend">License Plate</InputGroupAddon>
                             <Input />
                         </InputGroup>
                         </Col>

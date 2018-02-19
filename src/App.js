@@ -8,6 +8,8 @@ import { APIServices } from './components/APIServices/APIServices';
 import { RequestPlaceholders } from './components/RequestPlaceholders/RequestPlaceholders';
 import { ConstructedRequest } from './components/ConstructedRequest/ConstructedRequest';
 import { Debug } from './components/Debug/Debug';
+import { Actions } from './components/Actions/Actions';
+import { N4RecordScan } from './util/N4RecordScan';
 
 class App extends Component {
   constructor(props) {
@@ -20,11 +22,16 @@ class App extends Component {
     this.setAPI = this.setAPI.bind(this);
   }
 
+  toggleDebug() {
+    
+  }
+
   setAPI(selection) {
     this.setState({
       selectedAPI: selection
     });
     document.querySelector('#RequestArea').style.display = 'block';
+    document.querySelector('#SubmitButton').style.display = 'block';
   }
 
   setEnvironment(selection) {
@@ -46,7 +53,10 @@ class App extends Component {
             <div id="APIServices" style={{display:'none'}}>
               <APIServices onUpdateAPI={this.setAPI} /> <br />
             </div>
-            <Debug selectedEnvironment={this.state.selectedEnvironment} selectedAPI={this.state.selectedAPI}/>
+            <Actions />
+            <div id="Debug" style={{display:'none'}}>
+              <Debug selectedEnvironment={this.state.selectedEnvironment} selectedAPI={this.state.selectedAPI}/>
+            </div>
           </div>
           <div className="three" id="RequestArea" style={{display:'none'}}>
             <RequestPlaceholders selectedAPI={this.state.selectedAPI}/> <br />
@@ -54,13 +64,6 @@ class App extends Component {
           </div>
         </div>
         <br /><br /><br />
-        <Button color="primary">primary</Button>{' '}
-        <Button color="secondary">secondary</Button>{' '}
-        <Button color="success">success</Button>{' '}
-        <Button color="info">info</Button>{' '}
-        <Button color="warning">warning</Button>{' '}
-        <Button color="danger">danger</Button>{' '}
-        <Button color="link">link</Button>
       </div>
     );
   }
