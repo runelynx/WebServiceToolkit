@@ -10,6 +10,7 @@ import { ConstructedRequest } from './components/ConstructedRequest/ConstructedR
 import { Debug } from './components/Debug/Debug';
 import { Actions } from './components/Actions/Actions';
 import { N4RecordScan } from './util/N4RecordScan';
+import beautify from 'xml-beautifier';
 
 class App extends Component {
   constructor(props) {
@@ -18,12 +19,16 @@ class App extends Component {
       selectedEnvironment: null,
       selectedAPI: null,
       apiPlaceholders: [],
-      showDebug: false
+      showDebug: false,
+      apiRequest: ''
     };
     this.setEnvironment = this.setEnvironment.bind(this);
     this.setAPI = this.setAPI.bind(this);
+    this.setAPIRequest = this.setAPIRequest.bind(this);
     this.setPlaceholders = this.setPlaceholders.bind(this);
     this.toggleDebug = this.toggleDebug.bind(this);
+    this.sendRequest = this.sendRequest.bind(this);
+    this.interpolateRequest = this.interpolateRequest.bind(this);
   }
 
   toggleDebug() {
@@ -36,6 +41,38 @@ class App extends Component {
     this.setState({
       showDebug: !this.state.showDebug
     });
+  }
+
+  sendRequest() {
+    N4RecordScan.submit(this.interpolateRequest());
+  }
+
+  interpolateRequest() {
+    let requestToSend = this.state.apiRequest;
+
+    for (var i=0; i < this.state.apiPlaceholders.length; i++) {
+      let inputField = 'placeholder' + i;
+      console.log(inputField);
+      
+      let newValue = document.getElementById(inputField).value;
+      //Do this 3 times to catch up to 3 replacements. i.e. Chassis which is in Record Scan twice
+      requestToSend = requestToSend.replace('#'+ this.state.apiPlaceholders[i] +'#', newValue);
+      requestToSend = requestToSend.replace('#'+ this.state.apiPlaceholders[i] +'#', newValue);
+      requestToSend = requestToSend.replace('#'+ this.state.apiPlaceholders[i] +'#', newValue);
+      console.log('Replacing ' + '#'+ this.state.apiPlaceholders[i] +'#' + ' with ' +  newValue);
+      
+    }
+    console.log(requestToSend);
+    
+    return requestToSend;
+  }
+
+  setAPIRequest(request) {
+    this.setState({
+      apiRequest: request
+    });
+    
+    document.getElementById('ConstructedRequest').value = beautify(request);
   }
 
   setAPI(selection) {
@@ -69,16 +106,16 @@ class App extends Component {
           <div className="two">
             <APITarget onUpdateEnvironment={this.setEnvironment} /> <br />
             <div id="APIServices" style={{display:'none'}}>
-              <APIServices onUpdateAPI={this.setAPI} onUpdatePlaceholders={this.setPlaceholders}/> <br />
+              <APIServices onUpdateAPI={this.setAPI} onUpdatePlaceholders={this.setPlaceholders} onUpdateRequest={this.setAPIRequest}/> <br />
             </div>
-            <Actions onToggleDebug={this.toggleDebug}/> <br />
+            <Actions onToggleDebug={this.toggleDebug} onSendRequest={this.sendRequest}/> <br />
             <div id="Debug" style={{display:'none'}}>
               <Debug selectedEnvironment={this.state.selectedEnvironment} selectedAPI={this.state.selectedAPI} placeholders={this.state.apiPlaceholders}/>
             </div>
           </div>
           <div className="three" id="RequestArea" style={{display:'none'}}>
             <RequestPlaceholders selectedAPI={this.state.selectedAPI} apiPlaceholders={this.state.apiPlaceholders}/> <br />
-            <ConstructedRequest selectedAPI={this.state.selectedAPI}/>
+            <ConstructedRequest selectedAPI={this.state.selectedAPI} apiRequest={this.state.apiRequest}/>
           </div>
         </div>
         <br /><br /><br />

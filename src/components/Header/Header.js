@@ -8,7 +8,7 @@ export class Header extends React.Component {
         return (
             <div>
                 <h1 className="maintitletext">
-                    <i class="fas fa-cog fa-spin"></i>
+                    <i className="fas fa-cog fa-spin"></i>
                     {' '}Pier 400 Web Service Toolkit
                 </h1>
             </div>

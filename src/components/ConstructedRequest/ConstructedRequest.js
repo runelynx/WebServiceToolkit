@@ -1,6 +1,7 @@
 import './ConstructedRequest.css';
 import React from 'react';
-import { Input } from 'reactstrap';
+import { Alert } from 'reactstrap';
+import beautify from 'xml-beautifier';
 
 export class ConstructedRequest extends React.Component {
 
@@ -10,7 +11,9 @@ export class ConstructedRequest extends React.Component {
                 <h2 className="subtitle">
                     Constructed {this.props.selectedAPI} Request
                 </h2>
-                <Input type="textarea" rows="10" name="text" id="exampleText"/>
+                <Alert color="warning" id="ConstructedRequest">
+                    {beautify(this.props.apiRequest)}
+                </Alert>
             </div>
         );
     }

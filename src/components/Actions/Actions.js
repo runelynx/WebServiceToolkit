@@ -13,11 +13,7 @@ export class Actions extends React.Component {
     }
 
     onSubmitBtnClick() {
-        //this.props.onUpdateEnvironment(selection);
-        //this.setState({
-        //    selected: selection
-        //});
-
+        this.props.onSendRequest();
     }
 
     onToggleBtnClick() {
