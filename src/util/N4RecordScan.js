@@ -3,7 +3,7 @@ var base64 = require('base-64');
 let proxyurl = 'https://cors-anywhere.herokuapp.com/';
 let url = 'http://SCRB4APUSLSA701:10080/apex/services/argobasicservice';
 let username = 'abo055';
-let password = 'psdr5001';
+let password = '';
 let headers = new Headers();
 
 export const N4RecordScan = {
