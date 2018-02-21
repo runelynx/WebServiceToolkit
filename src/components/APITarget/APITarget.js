@@ -14,8 +14,8 @@ export class APITarget extends React.Component {
         };
       }
 
-      onSelectBtnClick(selection) {
-        this.props.onUpdateEnvironment(selection);
+      onSelectBtnClick(selection, server) {
+        this.props.onUpdateEnvironment(selection, server);
         this.setState({
             selected: selection
         });
@@ -32,14 +32,14 @@ export class APITarget extends React.Component {
         return (
             <div>
                 <h2 className="subtitle">
-                    N4 Environments
+                    Choose an Environment
                 </h2>
                 <ButtonGroup>
-                    <Button onClick={() => this.onSelectBtnClick('Dev')} outline active={this.state.selected === "Dev"}color="danger" >Dev</Button>{' '}
-                    <Button onClick={() => this.onSelectBtnClick('Test')} outline active={this.state.selected === "Test"} color="warning" >Test</Button>{' '}
-                    <Button onClick={() => this.onSelectBtnClick('UAT')} outline active={this.state.selected === "UAT"} color="primary" >UAT</Button>{' '}
-                    <Button onClick={() => this.onSelectBtnClick('Prod')} outline active={this.state.selected === "Prod"} color="success" id='N4ProdButton'>
-                       Prod
+                    <Button onClick={() => this.onSelectBtnClick('Dev', 'http://SCRB4APUSLSA901:9080')} outline active={this.state.selected === "Dev"}color="danger" >N4Dev</Button>{' '}
+                    <Button onClick={() => this.onSelectBtnClick('Test', 'http://SCRB4APUSLSA801:9080')} outline active={this.state.selected === "Test"} color="warning" >N4Test</Button>{' '}
+                    <Button onClick={() => this.onSelectBtnClick('UAT', 'http://SCRB4APUSLSA701:10080')} outline active={this.state.selected === "UAT"} color="primary" >N4UAT</Button>{' '}
+                    <Button onClick={() => this.onSelectBtnClick('Prod', 'http://SCRB4APUSLSA001:10080')} outline active={this.state.selected === "Prod"} color="success" id='N4ProdButton'>
+                       N4Prod
                     </Button>
                 </ButtonGroup>
 

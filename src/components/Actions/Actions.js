@@ -5,15 +5,10 @@ export class Actions extends React.Component {
     constructor(props) {
         super(props);
 
-        this.onSubmitBtnClick = this.onSubmitBtnClick.bind(this);
         this.onToggleBtnClick = this.onToggleBtnClick.bind(this);
         this.state = {
             tooltipOpen: false
         };
-    }
-
-    onSubmitBtnClick() {
-        this.props.onSendRequest();
     }
 
     onToggleBtnClick() {
@@ -23,12 +18,7 @@ export class Actions extends React.Component {
     render() {
         return (
             <div>
-                <h2 className="subtitle">
-                    Actions
-                </h2>
-
-                <Button onClick={() => this.onSubmitBtnClick()} id="SubmitButton" style={{display:'none'}} color="success" >Submit</Button>{' '}
-                <Button onClick={() => this.onToggleBtnClick()} id="DebugButton" color="warning" >Debug</Button>{' '}
+                <Button onClick={() => this.onToggleBtnClick()} id="DebugButton" size="sm" color="info" outline>Debug</Button>{' '}
             </div>
         );
     }

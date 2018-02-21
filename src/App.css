@@ -2,7 +2,7 @@
   box-sizing: border-box; 
 }
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Acme', sans-serif;
 }
 .wrapper {
   max-width: 1200px;
@@ -12,12 +12,11 @@ body {
 
 
 .subtitle { 
-  color: rgb(0,75,150); 
+  color: rgb(0,175,125); 
   font-size: 20px; 
   font-weight: 300; 
   line-height: 40px; 
   margin: 0 0 16px; 
-  font-style: oblique;
   font-weight: bold;
 }
 
@@ -33,8 +32,9 @@ body {
 .one {
   grid-column: 1 / 6;
   grid-row: 1;
-  background: teal;
-  box-shadow: 0 0 2px 5px teal;
+  background: black;
+  box-shadow: 0 0 2px 5px black;
+  border-radius: 10px;
 }
 .two { 
   grid-column: 1 / 2;
