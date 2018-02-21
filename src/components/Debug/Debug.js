@@ -25,6 +25,11 @@ export class Debug extends React.Component {
                         Placeholders
                     </Badge>
                     {' ' + this.props.placeholders}
+                    <br />
+                    <Badge color="info">
+                        URL
+                    </Badge>
+                    {' ' + this.props.urlServer + ' ' + this.props.urlEndpoint}
                 </p>
             </div>
         );

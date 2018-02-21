@@ -20,7 +20,9 @@ class App extends Component {
       selectedAPI: null,
       apiPlaceholders: [],
       showDebug: false,
-      apiRequest: ''
+      apiRequest: '',
+      server: '',
+      endpoint: ''
     };
     this.setEnvironment = this.setEnvironment.bind(this);
     this.setAPI = this.setAPI.bind(this);
@@ -29,6 +31,7 @@ class App extends Component {
     this.toggleDebug = this.toggleDebug.bind(this);
     this.sendRequest = this.sendRequest.bind(this);
     this.interpolateRequest = this.interpolateRequest.bind(this);
+    
   }
 
   toggleDebug() {
@@ -44,7 +47,7 @@ class App extends Component {
   }
 
   sendRequest() {
-    N4RecordScan.submit(this.interpolateRequest());
+    N4RecordScan.submit(this.interpolateRequest(), this.state.server, this.state.endpoint);
   }
 
   interpolateRequest() {
@@ -72,20 +75,22 @@ class App extends Component {
       apiRequest: request
     });
     
-    document.getElementById('ConstructedRequest').value = beautify(request);
+    //document.getElementById('ConstructedRequest').value = beautify(request);
   }
 
-  setAPI(selection) {
+  setAPI(selection, endpoint) {
     this.setState({
-      selectedAPI: selection
+      selectedAPI: selection,
+      endpoint: endpoint
     });
     document.querySelector('#RequestArea').style.display = 'block';
     document.querySelector('#SubmitButton').style.display = 'block';
   }
 
-  setEnvironment(selection) {
+  setEnvironment(selection, server) {
     this.setState({
-      selectedEnvironment: selection
+      selectedEnvironment: selection,
+      server: server
     });
     document.querySelector('#APIServices').style.display = 'block';
   }
@@ -108,14 +113,13 @@ class App extends Component {
             <div id="APIServices" style={{display:'none'}}>
               <APIServices onUpdateAPI={this.setAPI} onUpdatePlaceholders={this.setPlaceholders} onUpdateRequest={this.setAPIRequest}/> <br />
             </div>
-            <Actions onToggleDebug={this.toggleDebug} onSendRequest={this.sendRequest}/> <br />
+            <Actions onToggleDebug={this.toggleDebug}/> <br />
             <div id="Debug" style={{display:'none'}}>
-              <Debug selectedEnvironment={this.state.selectedEnvironment} selectedAPI={this.state.selectedAPI} placeholders={this.state.apiPlaceholders}/>
+              <Debug urlServer={this.state.server} urlEndpoint={this.state.endpoint} selectedEnvironment={this.state.selectedEnvironment} selectedAPI={this.state.selectedAPI} placeholders={this.state.apiPlaceholders}/>
             </div>
           </div>
           <div className="three" id="RequestArea" style={{display:'none'}}>
-            <RequestPlaceholders selectedAPI={this.state.selectedAPI} apiPlaceholders={this.state.apiPlaceholders}/> <br />
-            <ConstructedRequest selectedAPI={this.state.selectedAPI} apiRequest={this.state.apiRequest}/>
+            <RequestPlaceholders onSendRequest={this.sendRequest} urlServer={this.state.server} urlEndpoint={this.state.endpoint} selectedAPI={this.state.selectedAPI} apiPlaceholders={this.state.apiPlaceholders}/> <br />
           </div>
         </div>
         <br /><br /><br />

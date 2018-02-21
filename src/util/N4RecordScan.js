@@ -1,13 +1,12 @@
 var base64 = require('base-64');
 
-let url = 'http://SCRB4APUSLSA801:9080/apex/services/argobasicservice';
 let username = 'abo055';
-let password = 'psdr5001';
+let password = '';
 let headers = new Headers();
 
 export const N4RecordScan = {
 
-    submit(data) {
+    submit(data, server, endpoint) {
 
 		headers.append('Content-Type', 'text/xml');
 		headers.append('SOAPAction', 'basicInvoke');
@@ -20,7 +19,7 @@ export const N4RecordScan = {
 		
 		console.log('about to send ' + data);
 		
-        fetch(url, {
+        fetch(server + endpoint, {
             body: data,
             method: 'POST',
 			mode: 'cors',

@@ -13,8 +13,8 @@ export class APIServices extends React.Component {
         };
     }
 
-    onSelectDropdownClick(selection) {
-        this.props.onUpdateAPI(selection);
+    onSelectDropdownClick(selection, endpoint) {
+        this.props.onUpdateAPI(selection, endpoint);
         console.log("Debug99");
 
         let placeholders = [];
@@ -41,7 +41,7 @@ export class APIServices extends React.Component {
         return (
             <div>
                 <h2 className="subtitle">
-                    API Services
+                    Select an API
                 </h2>
 
                 <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -50,7 +50,7 @@ export class APIServices extends React.Component {
                         </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem header>N4 Basic Services</DropdownItem>
-                        <DropdownItem onClick={() => this.onSelectDropdownClick('Record Scan')}>Gate: Record Scan</DropdownItem>
+                        <DropdownItem onClick={() => this.onSelectDropdownClick('Record Scan', '/apex/services/argobasicservice')}>Gate: Record Scan</DropdownItem>
                         <DropdownItem divider />
                         <DropdownItem>Another Action</DropdownItem>
                     </DropdownMenu>

@@ -1,11 +1,12 @@
 import './RequestPlaceholders.css';
 import React from 'react';
-import { Container, Row, Col, InputGroup, Input, InputGroupAddon } from 'reactstrap';
+import { Container, Row, Col, InputGroup, Input, InputGroupAddon, Button } from 'reactstrap';
 
 export class RequestPlaceholders extends React.Component {
     constructor(props) {
         super(props);
         this.renderPlaceholders = this.renderPlaceholders.bind(this);
+        this.onSubmitBtnClick = this.onSubmitBtnClick.bind(this);
     }
 
     renderPlaceholders() {
@@ -53,6 +54,10 @@ export class RequestPlaceholders extends React.Component {
 
     }
 
+    onSubmitBtnClick() {
+        this.props.onSendRequest();
+    }
+
     render() {
         return (
             <div>
@@ -62,6 +67,8 @@ export class RequestPlaceholders extends React.Component {
                 <Container>
                     {this.renderPlaceholders()}
                 </Container>
+                <br />
+                <Button onClick={() => this.onSubmitBtnClick()} id="SubmitButton" style={{display:'none'}} color="success" size="sm" block>Submit</Button>
             </div>
         );
     }
