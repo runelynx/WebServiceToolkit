@@ -2,6 +2,7 @@
   "name": "webservicetoolkit",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://SCRBAPPUSLSA701/webservicetoolkit",
   "dependencies": {
     "base-64": "^0.1.0",
     "bootstrap": "^4.0.0",

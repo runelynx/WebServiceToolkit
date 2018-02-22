@@ -1,12 +1,12 @@
 var base64 = require('base-64');
 
 let username = 'abo055';
-let password = '';
-let headers = new Headers();
+let password = 'psdr5001';
 
 export const N4RecordScan = {
 
     submit(data, server, endpoint) {
+		let headers = new Headers();
 
 		headers.append('Content-Type', 'text/xml');
 		headers.append('SOAPAction', 'basicInvoke');
