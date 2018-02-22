@@ -1,6 +1,6 @@
 import './RequestPlaceholders.css';
 import React from 'react';
-import { Container, Row, Col, InputGroup, Input, InputGroupAddon, Button } from 'reactstrap';
+import { Container, Row, Col, InputGroup, Input, InputGroupAddon, Button, ButtonGroup } from 'reactstrap';
 
 export class RequestPlaceholders extends React.Component {
     constructor(props) {
@@ -13,6 +13,31 @@ export class RequestPlaceholders extends React.Component {
         console.log("Debug28");
 
         let requestPlaceholders = [];
+
+        //start with the options buttons for this request... if there are options!
+        if(this.props.requestOptions.length > 1) {
+
+            let requestOptionButtonArray = []
+            //Construct the radio buttons to select the options
+            for(var i = 0; i < this.props.requestOptions.length; i++) {
+                requestOptionButtonArray.push(
+                    <Button color="info" onClick={() => this.onRadioBtnClick(1)} active='false'>
+                        {this.props.requestOptions[i].type}
+                    </Button>
+                );
+            }
+
+            requestPlaceholders.push(
+                <Row key='A'>
+                    <Col>
+                        <ButtonGroup>
+                        {requestOptionButtonArray}
+                        </ButtonGroup>
+                    </Col>
+                </Row>
+            );
+        }
+
 
         for (var i = 0; i < this.props.apiPlaceholders.length; i += 2) {
             let j = i+1;

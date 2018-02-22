@@ -22,7 +22,8 @@ class App extends Component {
       showDebug: false,
       apiRequest: '',
       server: '',
-      endpoint: ''
+      endpoint: '',
+      requestOptions: []
     };
     this.setEnvironment = this.setEnvironment.bind(this);
     this.setAPI = this.setAPI.bind(this);
@@ -31,7 +32,7 @@ class App extends Component {
     this.toggleDebug = this.toggleDebug.bind(this);
     this.sendRequest = this.sendRequest.bind(this);
     this.interpolateRequest = this.interpolateRequest.bind(this);
-    
+    this.setRequestOptions = this.setRequestOptions.bind(this);
   }
 
   toggleDebug() {
@@ -68,6 +69,12 @@ class App extends Component {
     console.log(requestToSend);
     
     return requestToSend;
+  }
+
+  setRequestOptions(requestOptions){
+    this.setState({
+      requestOptions: requestOptions
+    });
   }
 
   setAPIRequest(request) {
@@ -111,7 +118,7 @@ class App extends Component {
           <div className="two">
             <APITarget onUpdateEnvironment={this.setEnvironment} /> <br />
             <div id="APIServices" style={{display:'none'}}>
-              <APIServices onUpdateAPI={this.setAPI} onUpdatePlaceholders={this.setPlaceholders} onUpdateRequest={this.setAPIRequest}/> <br />
+              <APIServices onUpdateRequestOptions={this.setRequestOptions} onUpdateAPI={this.setAPI} onUpdatePlaceholders={this.setPlaceholders} onUpdateRequest={this.setAPIRequest}/> <br />
             </div>
             <Actions onToggleDebug={this.toggleDebug}/> <br />
             <div id="Debug" style={{display:'none'}}>
@@ -119,7 +126,7 @@ class App extends Component {
             </div>
           </div>
           <div className="three" id="RequestArea" style={{display:'none'}}>
-            <RequestPlaceholders onSendRequest={this.sendRequest} urlServer={this.state.server} urlEndpoint={this.state.endpoint} selectedAPI={this.state.selectedAPI} apiPlaceholders={this.state.apiPlaceholders}/> <br />
+            <RequestPlaceholders onSendRequest={this.sendRequest} requestOptions={this.state.requestOptions} urlServer={this.state.server} urlEndpoint={this.state.endpoint} selectedAPI={this.state.selectedAPI} apiPlaceholders={this.state.apiPlaceholders}/> <br />
           </div>
         </div>
         <br /><br /><br />
