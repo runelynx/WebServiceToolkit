@@ -26,13 +26,11 @@ class App extends Component {
       requestOptions: []
     };
     this.setEnvironment = this.setEnvironment.bind(this);
-    this.setAPI = this.setAPI.bind(this);
-    this.setAPIRequest = this.setAPIRequest.bind(this);
-    this.setPlaceholders = this.setPlaceholders.bind(this);
+    this.setChangedAPI = this.setChangedAPI.bind(this);
+    this.setInitialAPI = this.setInitialAPI.bind(this);
     this.toggleDebug = this.toggleDebug.bind(this);
     this.sendRequest = this.sendRequest.bind(this);
     this.interpolateRequest = this.interpolateRequest.bind(this);
-    this.setRequestOptions = this.setRequestOptions.bind(this);
   }
 
   toggleDebug() {
@@ -71,27 +69,28 @@ class App extends Component {
     return requestToSend;
   }
 
-  setRequestOptions(requestOptions){
-    this.setState({
-      requestOptions: requestOptions
-    });
-  }
-
-  setAPIRequest(request) {
-    this.setState({
-      apiRequest: request
-    });
-    
-    //document.getElementById('ConstructedRequest').value = beautify(request);
-  }
-
-  setAPI(selection, endpoint) {
+  setInitialAPI(selection, endpoint, request, requestOptions, placeholders) {
     this.setState({
       selectedAPI: selection,
-      endpoint: endpoint
+      endpoint: endpoint,
+      apiRequest: request,
+      requestOptions: requestOptions,
+      apiPlaceholders: placeholders
     });
     document.querySelector('#RequestArea').style.display = 'block';
     document.querySelector('#SubmitButton').style.display = 'block';
+  }
+
+  setChangedAPI(newOptionIndex) {
+    console.log(this.state.requestOptions);
+    console.log(newOptionIndex);
+    
+    let newRequest = this.state.requestOptions[newOptionIndex].request;
+    
+    this.setState({
+      apiRequest: newRequest,
+      apiPlaceholders: this.state.requestOptions[newOptionIndex].inputs
+    });
   }
 
   setEnvironment(selection, server) {
@@ -100,12 +99,6 @@ class App extends Component {
       server: server
     });
     document.querySelector('#APIServices').style.display = 'block';
-  }
-
-  setPlaceholders(placeholders) {
-    this.setState({
-      apiPlaceholders: placeholders
-    });
   }
 
   render() {
@@ -118,7 +111,7 @@ class App extends Component {
           <div className="two">
             <APITarget onUpdateEnvironment={this.setEnvironment} /> <br />
             <div id="APIServices" style={{display:'none'}}>
-              <APIServices onUpdateRequestOptions={this.setRequestOptions} onUpdateAPI={this.setAPI} onUpdatePlaceholders={this.setPlaceholders} onUpdateRequest={this.setAPIRequest}/> <br />
+              <APIServices onUpdateAPI={this.setInitialAPI}/> <br />
             </div>
             <Actions onToggleDebug={this.toggleDebug}/> <br />
             <div id="Debug" style={{display:'none'}}>
@@ -126,7 +119,7 @@ class App extends Component {
             </div>
           </div>
           <div className="three" id="RequestArea" style={{display:'none'}}>
-            <RequestPlaceholders onSendRequest={this.sendRequest} requestOptions={this.state.requestOptions} urlServer={this.state.server} urlEndpoint={this.state.endpoint} selectedAPI={this.state.selectedAPI} apiPlaceholders={this.state.apiPlaceholders}/> <br />
+            <RequestPlaceholders onSendRequest={this.sendRequest} onChangeAPI={this.setChangedAPI} requestOptions={this.state.requestOptions} urlServer={this.state.server} urlEndpoint={this.state.endpoint} selectedAPI={this.state.selectedAPI} apiPlaceholders={this.state.apiPlaceholders}/> <br />
           </div>
         </div>
         <br /><br /><br />

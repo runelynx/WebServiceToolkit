@@ -13,13 +13,11 @@ export class APIServices extends React.Component {
         };
     }
 
-    onSelectDropdownClick(selection, endpoint) {
-        this.props.onUpdateAPI(selection, endpoint);
-        console.log("Debug99");
+    onSelectDropdownClick(selectedAPI, endpoint) {
 
         let requestPlaceholders = [];
 
-        if (selection === 'Record Scan') {
+        if (selectedAPI === 'Record Scan') {
             requestPlaceholders = [{
                 type: 'Container',
                 inputs: ['Stage', 'Lane', 'Clerk Console', 'License Plate', 'Weight', 'RFID', 'Container', 'Chassis'],
@@ -45,12 +43,8 @@ export class APIServices extends React.Component {
             }];
 
         }
-        
-        console.log(requestPlaceholders);
-        this.props.onUpdateRequestOptions(requestPlaceholders);
-        this.props.onUpdatePlaceholders(requestPlaceholders[0].inputs);
-        this.props.onUpdateRequest(requestPlaceholders[0].request);
-        
+
+        this.props.onUpdateAPI(selectedAPI, endpoint, requestPlaceholders[0].request, requestPlaceholders, requestPlaceholders[0].inputs);        
     }
 
     toggle() {

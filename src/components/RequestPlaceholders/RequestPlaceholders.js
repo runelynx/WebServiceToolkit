@@ -5,12 +5,23 @@ import { Container, Row, Col, InputGroup, Input, InputGroupAddon, Button, Button
 export class RequestPlaceholders extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            apiOptionSelected: 0
+        };
         this.renderPlaceholders = this.renderPlaceholders.bind(this);
-        this.onSubmitBtnClick = this.onSubmitBtnClick.bind(this);
+        this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
+    }
+
+    onRadioBtnClick(selection) {
+        this.setState({
+            apiOptionSelected: selection
+        });
+        this.props.onChangeAPI(selection);
+
     }
 
     renderPlaceholders() {
-        console.log("Debug28");
 
         let requestPlaceholders = [];
 
@@ -19,20 +30,21 @@ export class RequestPlaceholders extends React.Component {
 
             let requestOptionButtonArray = []
             //Construct the radio buttons to select the options
-            for(var i = 0; i < this.props.requestOptions.length; i++) {
+            for(let w = 0; w < this.props.requestOptions.length; w++) {
                 requestOptionButtonArray.push(
-                    <Button color="info" onClick={() => this.onRadioBtnClick(1)} active='false'>
-                        {this.props.requestOptions[i].type}
+                    <Button id={'radio' + w} color="info" onClick={() => this.onRadioBtnClick(w)} outline active={this.state.apiOptionSelected === w}>
+                        {this.props.requestOptions[w].type}
                     </Button>
                 );
             }
 
             requestPlaceholders.push(
                 <Row key='A'>
-                    <Col>
+                    <Col className='headerOptions'>
                         <ButtonGroup>
                         {requestOptionButtonArray}
                         </ButtonGroup>
+                        <br />
                     </Col>
                 </Row>
             );
