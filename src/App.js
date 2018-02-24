@@ -10,6 +10,7 @@ import { ConstructedRequest } from './components/ConstructedRequest/ConstructedR
 import { Debug } from './components/Debug/Debug';
 import { Actions } from './components/Actions/Actions';
 import { N4RecordScan } from './util/N4RecordScan';
+import { Responses } from './components/Responses/Responses';
 import beautify from 'xml-beautifier';
 
 class App extends Component {
@@ -23,7 +24,8 @@ class App extends Component {
       apiRequest: '',
       server: '',
       endpoint: '',
-      requestOptions: []
+      requestOptions: [],
+      responseAlerts: []
     };
     this.setEnvironment = this.setEnvironment.bind(this);
     this.setChangedAPI = this.setChangedAPI.bind(this);
@@ -31,6 +33,7 @@ class App extends Component {
     this.toggleDebug = this.toggleDebug.bind(this);
     this.sendRequest = this.sendRequest.bind(this);
     this.interpolateRequest = this.interpolateRequest.bind(this);
+    this.processResponse = this.processResponse.bind(this);
   }
 
   toggleDebug() {
@@ -45,27 +48,34 @@ class App extends Component {
     });
   }
 
+  processResponse(myResponseObject) {
+    this.setState({
+      responseAlerts: this.state.responseAlerts.unshift(myResponseObject)
+    });
+  }
+
   sendRequest() {
-    N4RecordScan.submit(this.interpolateRequest(), this.state.server, this.state.endpoint);
+    let response = N4RecordScan.submit(this.interpolateRequest(), this.state.server, this.state.endpoint);
+    this.processResponse(response);
   }
 
   interpolateRequest() {
     let requestToSend = this.state.apiRequest;
 
-    for (var i=0; i < this.state.apiPlaceholders.length; i++) {
+    for (var i = 0; i < this.state.apiPlaceholders.length; i++) {
       let inputField = 'placeholder' + i;
       console.log(inputField);
-      
+
       let newValue = document.getElementById(inputField).value;
       //Do this 3 times to catch up to 3 replacements. i.e. Chassis which is in Record Scan twice
-      requestToSend = requestToSend.replace('#'+ this.state.apiPlaceholders[i] +'#', newValue);
-      requestToSend = requestToSend.replace('#'+ this.state.apiPlaceholders[i] +'#', newValue);
-      requestToSend = requestToSend.replace('#'+ this.state.apiPlaceholders[i] +'#', newValue);
-      console.log('Replacing ' + '#'+ this.state.apiPlaceholders[i] +'#' + ' with ' +  newValue);
-      
+      requestToSend = requestToSend.replace('#' + this.state.apiPlaceholders[i] + '#', newValue);
+      requestToSend = requestToSend.replace('#' + this.state.apiPlaceholders[i] + '#', newValue);
+      requestToSend = requestToSend.replace('#' + this.state.apiPlaceholders[i] + '#', newValue);
+      console.log('Replacing ' + '#' + this.state.apiPlaceholders[i] + '#' + ' with ' + newValue);
+
     }
     console.log(requestToSend);
-    
+
     return requestToSend;
   }
 
@@ -84,9 +94,9 @@ class App extends Component {
   setChangedAPI(newOptionIndex) {
     console.log(this.state.requestOptions);
     console.log(newOptionIndex);
-    
+
     let newRequest = this.state.requestOptions[newOptionIndex].request;
-    
+
     this.setState({
       apiRequest: newRequest,
       apiPlaceholders: this.state.requestOptions[newOptionIndex].inputs
@@ -110,16 +120,17 @@ class App extends Component {
           </div>
           <div className="two">
             <APITarget onUpdateEnvironment={this.setEnvironment} /> <br />
-            <div id="APIServices" style={{display:'none'}}>
-              <APIServices onUpdateAPI={this.setInitialAPI}/> <br />
+            <div id="APIServices" style={{ display: 'none' }}>
+              <APIServices onUpdateAPI={this.setInitialAPI} /> <br />
             </div>
-            <Actions onToggleDebug={this.toggleDebug}/> <br />
-            <div id="Debug" style={{display:'none'}}>
-              <Debug urlServer={this.state.server} urlEndpoint={this.state.endpoint} selectedEnvironment={this.state.selectedEnvironment} selectedAPI={this.state.selectedAPI} placeholders={this.state.apiPlaceholders}/>
+            <Actions onToggleDebug={this.toggleDebug} /> <br />
+            <div id="Debug" style={{ display: 'none' }}>
+              <Debug urlServer={this.state.server} urlEndpoint={this.state.endpoint} selectedEnvironment={this.state.selectedEnvironment} selectedAPI={this.state.selectedAPI} placeholders={this.state.apiPlaceholders} />
             </div>
           </div>
-          <div className="three" id="RequestArea" style={{display:'none'}}>
-            <RequestPlaceholders onSendRequest={this.sendRequest} onChangeAPI={this.setChangedAPI} requestOptions={this.state.requestOptions} urlServer={this.state.server} urlEndpoint={this.state.endpoint} selectedAPI={this.state.selectedAPI} apiPlaceholders={this.state.apiPlaceholders}/> <br />
+          <div className="three" id="RequestArea" style={{ display: 'none' }}>
+            <RequestPlaceholders onResponse={this.processResponse} onSendRequest={this.sendRequest} onChangeAPI={this.setChangedAPI} requestOptions={this.state.requestOptions} urlServer={this.state.server} urlEndpoint={this.state.endpoint} selectedAPI={this.state.selectedAPI} apiPlaceholders={this.state.apiPlaceholders} /> <br />
+            <Responses responses={this.state.responseAlerts} />
           </div>
         </div>
         <br /><br /><br />

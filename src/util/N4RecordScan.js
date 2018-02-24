@@ -26,9 +26,31 @@ export const N4RecordScan = {
             headers: headers,
             credentials: 'include'
         })
-            .then(response => console.log(response))
+            .then(function(response){
+                if (response.status === 200 || response.status === 0) {
+                    // Success!
+                    console.log('Success: ' + response.text);
+                    return {
+                        success: true,
+                        text: response.text
+                    };
+                } else {
+                    // Failure!
+                    console.log('Fail: ' + response.statusText);
+                    return {
+                        success: false,
+                        text: response.statusText
+                    };
+
+                }
+            } )
             .catch(function(error) {
-                console.log(error);
+                // Networking Failure!
+                console.log('NetworkFail: ' + error);
+                return {
+                    success: false,
+                    text: error
+                };
             });
         //.done();
 
