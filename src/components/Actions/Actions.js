@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonGroup, Button, Tooltip } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 export class Actions extends React.Component {
     constructor(props) {

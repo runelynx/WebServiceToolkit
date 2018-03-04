@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
-import { Button } from 'reactstrap';
 import { Header } from './components/Header/Header';
 import { APITarget } from './components/APITarget/APITarget';
 import { APIServices } from './components/APIServices/APIServices';
 import { RequestPlaceholders } from './components/RequestPlaceholders/RequestPlaceholders';
-import { ConstructedRequest } from './components/ConstructedRequest/ConstructedRequest';
 import { Debug } from './components/Debug/Debug';
 import { Actions } from './components/Actions/Actions';
 import { N4RecordScan } from './util/N4RecordScan';
 import { Responses } from './components/Responses/Responses';
-import beautify from 'xml-beautifier';
+//import beautify from 'xml-beautifier';
 
 class App extends Component {
   constructor(props) {
@@ -48,16 +46,27 @@ class App extends Component {
     });
   }
 
-  processResponse(myResponseObject) {
-    this.setState({
-      responseAlerts: this.state.responseAlerts.unshift(myResponseObject)
-    });
-  }
+	processResponse(myResponseObject) {
+		//Not used for now. The callback in sendRequest doesn't like the THIS below :( 
+	  this.setState({
+		responseAlerts: this.state.responseAlerts.push(myResponseObject)
+	  });
+	  console.log('Processing final response. '+ myResponseObject.success + ' ' + myResponseObject.text);
+	}
 
-  sendRequest() {
-    let response = N4RecordScan.submit(this.interpolateRequest(), this.state.server, this.state.endpoint);
-    this.processResponse(response);
-  }
+	sendRequest() {
+	  N4RecordScan.submit(this.interpolateRequest(), this.state.server, this.state.endpoint)
+	   .then(response => {
+		   console.log('About to call processResponse');
+		   console.log(response);
+			let tempArray = this.state.responseAlerts;
+			tempArray.push(response);
+			this.setState({
+				responseAlerts: tempArray
+			});
+			console.log('ResponseAlerts array length: ' + this.state.responseAlerts.length);
+	   })
+	}
 
   interpolateRequest() {
     let requestToSend = this.state.apiRequest;
@@ -71,7 +80,7 @@ class App extends Component {
       requestToSend = requestToSend.replace('#' + this.state.apiPlaceholders[i] + '#', newValue);
       requestToSend = requestToSend.replace('#' + this.state.apiPlaceholders[i] + '#', newValue);
       requestToSend = requestToSend.replace('#' + this.state.apiPlaceholders[i] + '#', newValue);
-      console.log('Replacing ' + '#' + this.state.apiPlaceholders[i] + '#' + ' with ' + newValue);
+      console.log('Replacing #' + this.state.apiPlaceholders[i] + '# with ' + newValue);
 
     }
     console.log(requestToSend);

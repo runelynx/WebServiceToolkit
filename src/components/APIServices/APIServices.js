@@ -67,8 +67,6 @@ export class APIServices extends React.Component {
                     <DropdownMenu>
                         <DropdownItem header>N4 Basic Services</DropdownItem>
                         <DropdownItem onClick={() => this.onSelectDropdownClick('Record Scan', '/apex/services/argobasicservice')}>Gate: Record Scan</DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem>Another Action</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
 
