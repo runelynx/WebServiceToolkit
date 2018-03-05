@@ -45,11 +45,11 @@ export class APIServices extends React.Component {
         } else if (selectedAPI === 'Create Appointment') {
             requestPlaceholders = [{
                 type: 'Deliver Import',
-                inputs: ['Stage', 'Lane', 'Clerk Console', 'License Plate', 'Weight', 'RFID', 'Container', 'Chassis'],
-                request: `<gate><record-scan><gate-id>USLAX</gate-id><stage-id>#Stage#</stage-id><lane-id>#Lane#</lane-id>
-                    <external-console-id>#Clerk Console#</external-console-id><truck tag-id="#RFID#" license-nbr="#License Plate#"/>
-                    <scale-weight unit="lb">#Weight#</scale-weight><equipment><container eqid="#Container#" on-chassis-id="#Chassis#" />
-                    <chassis eqid="#Chassis#"></chassis></equipment></record-scan></gate>`
+                inputs: ['Date', 'Time', 'Trucker SCAC', 'Container', 'Chassis', 'Owner Chassis?'],
+                request: `<gate><create-appointment><appointment-date>#Date#</appointment-date>
+                <appointment-time>#Time#</appointment-time><gate-id>USLAX</gate-id><driver /><truck trucking-co-id="#Trucker SCAC#" />
+                <tran-type>DI</tran-type><container eqid="#Container#"/>
+                <chassis eqid="#Chassis#" is-owners="#Owner Chassis?#" /></create-appointment></gate>`
             },
             {
                 type: 'Receive Export',
@@ -79,7 +79,7 @@ export class APIServices extends React.Component {
                     Select an API
                 </h2>
 
-                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size='sm'>
                     <DropdownToggle outline caret>
                         Select a Service
                         </DropdownToggle>
@@ -88,7 +88,6 @@ export class APIServices extends React.Component {
                         <DropdownItem onClick={() => this.onSelectDropdownClick('Record Scan', '/apex/services/argobasicservice')}>Gate: Record Scan</DropdownItem>
                         <DropdownItem onClick={() => this.onSelectDropdownClick('Create Appointment', '/apex/services/argobasicservice')}>Gate: Create Appt</DropdownItem>
                         <DropdownItem divider />
-                        <DropdownItem>Another Action</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
 

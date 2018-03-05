@@ -32,7 +32,7 @@ export class RequestPlaceholders extends React.Component {
             //Construct the radio buttons to select the options
             for(let w = 0; w < this.props.requestOptions.length; w++) {
                 requestOptionButtonArray.push(
-                    <Button id={'radio' + w} color="info" onClick={() => this.onRadioBtnClick(w)} outline active={this.state.apiOptionSelected === w}>
+                    <Button key={w} id={'radio' + w} color="info" onClick={() => this.onRadioBtnClick(w)} outline active={this.state.apiOptionSelected === w}>
                         {this.props.requestOptions[w].type}
                     </Button>
                 );
