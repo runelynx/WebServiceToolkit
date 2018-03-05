@@ -132,6 +132,7 @@ class App extends Component {
             <div id="APIServices" style={{ display: 'none' }}>
               <APIServices onUpdateAPI={this.setInitialAPI} /> <br />
             </div>
+            <br /> <br />
             <Actions onToggleDebug={this.toggleDebug} /> <br />
             <div id="Debug" style={{ display: 'none' }}>
               <Debug urlServer={this.state.server} urlEndpoint={this.state.endpoint} selectedEnvironment={this.state.selectedEnvironment} selectedAPI={this.state.selectedAPI} placeholders={this.state.apiPlaceholders} />

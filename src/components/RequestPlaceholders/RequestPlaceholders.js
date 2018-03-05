@@ -53,6 +53,36 @@ export class RequestPlaceholders extends React.Component {
 
         for (var i = 0; i < this.props.apiPlaceholders.length; i += 2) {
             let j = i+1;
+            let placeholderValue1 = '';
+            let placeholderValue2 = '';
+
+            if (this.props.apiPlaceholders[i] === 'Time') {
+                placeholderValue1 = '08:00:00';
+            } else if (this.props.apiPlaceholders[i] === 'Date') {
+                var rightNow = new Date();
+                placeholderValue1 = rightNow.toISOString().slice(0,10);
+            } else if (this.props.apiPlaceholders[i].includes('?')) {
+                placeholderValue1 = 'true';
+            } else if (this.props.apiPlaceholders[i] === 'Stage') {
+                placeholderValue1 = 'ingate';
+            } else if (this.props.apiPlaceholders[i] === 'Weight') {
+                placeholderValue1 = '35000';
+            }
+
+            if (j < this.props.apiPlaceholders.length) {
+                if (this.props.apiPlaceholders[j] === 'Time') {
+                    placeholderValue2 = '08:00:00';
+                } else if (this.props.apiPlaceholders[j] === 'Date') {
+                    var rightNow = new Date();
+                    placeholderValue2 = rightNow.toISOString().slice(0,10);
+                } else if (this.props.apiPlaceholders[j].includes('?')) {
+                    placeholderValue2 = 'true';
+                } else if (this.props.apiPlaceholders[j] === 'Stage') {
+                    placeholderValue2 = 'ingate';
+                } else if (this.props.apiPlaceholders[j] === 'Weight') {
+                    placeholderValue2 = '35000';
+                }
+            }
 
             if (i + 1 !== this.props.apiPlaceholders.length) {
                 requestPlaceholders.push(
@@ -60,13 +90,13 @@ export class RequestPlaceholders extends React.Component {
                         <Col xs="6">
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">{this.props.apiPlaceholders[i]}</InputGroupAddon>
-                                <Input id={'placeholder' + i}/>
+                                <Input id={'placeholder' + i} value={placeholderValue1}/>
                             </InputGroup>
                         </Col>
                         <Col xs="6">
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">{this.props.apiPlaceholders[j]}</InputGroupAddon>
-                                <Input id={'placeholder' + j}/>
+                                <Input id={'placeholder' + j} value={placeholderValue2}/>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -78,7 +108,7 @@ export class RequestPlaceholders extends React.Component {
                     <Col xs="6">
                         <InputGroup>
                             <InputGroupAddon addonType="prepend">{this.props.apiPlaceholders[i]}</InputGroupAddon>
-                            <Input id={'placeholder' + i}/>
+                            <Input id={'placeholder' + i} value={placeholderValue1}/>
                         </InputGroup>
                     </Col>
                     <Col />

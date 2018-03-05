@@ -34,7 +34,7 @@ export class APITarget extends React.Component {
                 <h2 className="subtitle">
                     Choose an Environment
                 </h2>
-                <ButtonGroup>
+                <ButtonGroup size='sm'>
                     <Button onClick={() => this.onSelectBtnClick('Dev', 'http://SCRB4APUSLSA901:9080')} outline active={this.state.selected === "Dev"}color="danger" >N4Dev</Button>{' '}
                     <Button onClick={() => this.onSelectBtnClick('Test', 'http://SCRB4APUSLSA801:9080')} outline active={this.state.selected === "Test"} color="warning" >N4Test</Button>{' '}
                     <Button onClick={() => this.onSelectBtnClick('UAT', 'http://SCRB4APUSLSA701:10080')} outline active={this.state.selected === "UAT"} color="primary" >N4UAT</Button>{' '}
