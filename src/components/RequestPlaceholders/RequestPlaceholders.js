@@ -90,13 +90,13 @@ export class RequestPlaceholders extends React.Component {
                         <Col xs="6">
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">{this.props.apiPlaceholders[i]}</InputGroupAddon>
-                                <Input id={'placeholder' + i} value={placeholderValue1}/>
+                                <Input id={'placeholder' + i} defaultValue={placeholderValue1}/>
                             </InputGroup>
                         </Col>
                         <Col xs="6">
                             <InputGroup>
                                 <InputGroupAddon addonType="prepend">{this.props.apiPlaceholders[j]}</InputGroupAddon>
-                                <Input id={'placeholder' + j} value={placeholderValue2}/>
+                                <Input id={'placeholder' + j} defaultValue={placeholderValue2}/>
                             </InputGroup>
                         </Col>
                     </Row>
@@ -108,7 +108,7 @@ export class RequestPlaceholders extends React.Component {
                     <Col xs="6">
                         <InputGroup>
                             <InputGroupAddon addonType="prepend">{this.props.apiPlaceholders[i]}</InputGroupAddon>
-                            <Input id={'placeholder' + i} value={placeholderValue1}/>
+                            <Input id={'placeholder' + i} defaultValue={placeholderValue1}/>
                         </InputGroup>
                     </Col>
                     <Col />
