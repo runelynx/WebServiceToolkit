@@ -53,7 +53,7 @@ export class APIServices extends React.Component {
             },
             {
                 type: 'Receive Export',
-                inputs: ['Date', 'Time', 'Trucker SCAC', 'Booking', 'Line', 'Container', 'Seal', 'Chassis', 'Owner Chassis?'],
+                inputs: ['Date', 'Time', 'Trucker SCAC', 'Container', 'Chassis', 'Owner Chassis?', 'Booking', 'Line', 'Seal'],
                 request: `<gate><create-appointment><appointment-date>#Date#</appointment-date>
                 <appointment-time>#Time#</appointment-time><gate-id>USLAX</gate-id><driver /><truck trucking-co-id="#Trucker SCAC#" />
                 <booking booking-nbr="#Booking#" line="#Line#" /><tran-type>RE</tran-type>

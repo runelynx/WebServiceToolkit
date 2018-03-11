@@ -18,7 +18,6 @@ export class RequestPlaceholders extends React.Component {
             apiOptionSelected: selection
         });
         this.props.onChangeAPI(selection);
-
     }
 
     renderPlaceholders() {
@@ -84,6 +83,7 @@ export class RequestPlaceholders extends React.Component {
                 }
             }
 
+
             if (i + 1 !== this.props.apiPlaceholders.length) {
                 requestPlaceholders.push(
                     <Row key={i}>
@@ -104,7 +104,7 @@ export class RequestPlaceholders extends React.Component {
             } else {
                 //Handle the last entry for arrays with odd number of entries
                 requestPlaceholders.push(
-                <Row>
+                <Row key={i}>
                     <Col xs="6">
                         <InputGroup>
                             <InputGroupAddon addonType="prepend">{this.props.apiPlaceholders[i]}</InputGroupAddon>
